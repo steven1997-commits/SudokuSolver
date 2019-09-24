@@ -1,0 +1,45 @@
+﻿<Window x:Class="SimpleSudokuSolver.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SimpleSudokuSolver"
+        mc:Ignorable="d"
+        Title="Sudoku" Height="450" Width="600"
+        xmlns:clr="clr-namespace:SimpleSudokuSolver"
+        KeyUp="Window_KeyUp"
+        ResizeMode="CanMinimize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="263*"/>
+            <ColumnDefinition Width="34*"/>
+            <ColumnDefinition Width="296*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="20*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,-0.4,0">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Click="OpenMenuItem_Click" Header="_Open"/>
+                    <MenuItem Click="CloseMenuItem_Click" Header="_Close"/>
+                    <MenuItem Click="SaveMenuItem_Click" Header="_Save"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <Grid Grid.Row="1" Grid.ColumnSpan="3" Margin="0,0,-0.4,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="9*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <Button Click="ResetButton_Click" Margin="10 10 0 10">Reset</Button>
+                <Button Click="SolveButton_Click" Margin="10 10 0 10">Solve</Button>
+                <Button Click="VerifyButton_Click" Margin="10 10 0 10">Verify</Button>
+            </StackPanel>
+            <clr:Board Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0 5" x:Name="board"/>
+        </Grid>
+    </Grid>
+</Window>
