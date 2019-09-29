@@ -35,7 +35,7 @@ namespace SimpleSudokuSolver
             if (openFileDialog.ShowDialog() == true)
             {
                 string fileName = openFileDialog.FileName;
-                int[][] sudoku = Parser.FileStringToSudoku(fileName);
+                string sudoku = Parser.FileStringToSudoku(fileName);
                 board.LoadBoard(sudoku);
             }
         }
@@ -78,7 +78,7 @@ namespace SimpleSudokuSolver
 
         private void VerifyButton_Click(object sender, RoutedEventArgs e)
         {
-            int[][] boardInt = board.GetBoard();
+            string boardInt = board.GetBoard();
             Solver solver = Solver.Instance;
             solver.LoadBoard(boardInt);
             bool isVerified = solver.Verify();

@@ -33,30 +33,6 @@ namespace SimpleSudokuSolver
             this.LoadBoard(this.initialBoard);
         }
 
-        public void LoadBoard(int[][] sudokuBoard)
-        {
-            List<List<Cell>> cells = this.cellCollection.RowCollection;
-            this.initialBoard = string.Empty;
-            for (int i=0;i<9;i++)
-            {
-                for (int j=0;j<9;j++)
-                {
-                    Cell cell = cells[i][j];
-                    int num = sudokuBoard[i][j];
-                    if (num > 0 && num < 10)
-                    {
-                        cell.Value = num.ToString();
-                        this.initialBoard += num.ToString();
-                    } else
-                    {
-                        cell.Value = string.Empty;
-                        this.initialBoard += "0";
-                    }
-                }
-            }
-            //Debug.Debug.PrintSudokuBoard(((CellCollection)this.BoardControl.DataContext).RowCollection);
-        }
-
         public void LoadBoard(string board)
         {
             List<List<Cell>> cells = this.cellCollection.RowCollection;
@@ -79,25 +55,23 @@ namespace SimpleSudokuSolver
             }
         }
 
-        public int[][] GetBoard()
+        public string GetBoard()
         {
             List<List<Cell>> cells = this.cellCollection.RowCollection;
-            int[][] board = new int[9][];
+            string board = string.Empty;
             for (int i=0;i<9;i++)
             {
-                int[] row = new int[9];
                 for (int j=0;j<9;j++)
                 {
                     if (cells[i][j].Value.Equals(string.Empty))
                     {
-                        row[j] = -1;
+                        board += "0";
                     }
                     else
                     {
-                        row[j] = int.Parse(cells[i][j].Value);
+                        board += cells[i][j].Value;
                     }
                 }
-                board[i] = row;
             }
             return board;
         }

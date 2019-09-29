@@ -10,76 +10,31 @@ namespace SimpleSudokuSolver
 {
     class Parser
     {
-        private static int[] ParseLine(string line)
+        public static string FileStringToSudoku(string fileName)
         {
-            string[] lineArray = line.Trim().Split(' ');
-            int[] lineAsNumbers = new int[9];
-            if (lineArray.Length != 9)
-            {
-                throw new InvalidSudokuException("Line too short, invalid sudoku puzzle");
-            }
-            for (int i=0;i<lineArray.Length;i++)
-            {
-                if (lineArray[i].Equals("-"))
-                {
-                    lineAsNumbers[i] = -1;
-                } else
-                {
-                    lineAsNumbers[i] = int.Parse(lineArray[i]);
-                }
-            }
-            return lineAsNumbers;
-        }
+            string sudokuBoard = string.Empty;
 
-        public static int[][] FileStringToSudoku(string fileName)
-        {
-            int[][] sudokuNums = new int[9][];
-
-            try
+            using (StreamReader reader = new StreamReader(fileName))
             {
-                int linePointer = 0;
-                using (StreamReader reader = new StreamReader(fileName))
+                if (reader.Peek() != -1)
                 {
-                    while (reader.Peek() != -1)
+                    sudokuBoard = reader.ReadLine();
+                    if (sudokuBoard.Length != 81)
                     {
-                        string line = reader.ReadLine();
-                        int[] sudokuLine = ParseLine(line);
-                        sudokuNums[linePointer] = sudokuLine;
-                        linePointer++;
+                        throw new InvalidSudokuException("Line should be 81 characters long.");
                     }
                 }
-                if (linePointer != 9)
+                else
                 {
                     throw new InvalidSudokuException("Not enough lines in file, invalid sudoku puzzle.");
                 }
-            } catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
             }
-            return sudokuNums;
+            return sudokuBoard;
         }
 
-        public static void SudokuBoardToFile(int[][] board, string fileName)
+        public static void SudokuBoardToFile(string board, string fileName)
         {
-            string fileText = string.Empty;
-            for (int i=0;i<9;i++)
-            {
-                for (int j=0;j<9;j++)
-                {
-                    string cell;
-                    int cellNum = board[i][j];
-                    if (cellNum == -1)
-                    {
-                        cell = "-";
-                    } else
-                    {
-                        cell = cellNum.ToString();
-                    }
-                    fileText += (cell + " ");
-                }
-                fileText += "\n";
-            }
-            File.WriteAllText(fileName,fileText);
+            File.WriteAllText(fileName,board);
         }
     }
 }

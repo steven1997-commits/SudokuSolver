@@ -16,21 +16,9 @@ namespace SimpleSudokuSolver
 
         private static Solver instance = null;
 
-        public void LoadBoard(int[][] board)
+        public void LoadBoard(string board)
         {
-            this.stringBoard = string.Empty;
-            for (int i=0;i<9;i++)
-            {
-                for (int j=0;j<9;j++)
-                {
-                    int cell = board[i][j];
-                    if (cell == -1)
-                    {
-                        cell = 0;
-                    }
-                    this.stringBoard += cell.ToString();
-                }
-            }
+            this.stringBoard = board;
         }
 
         public static Solver Instance
